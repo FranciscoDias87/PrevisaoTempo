@@ -46,7 +46,7 @@ function searchResults(city,lang){
 function diplayResults(weather){
     console.log(weather);
     
-    city.innerText = `${weather.location.name}, ${weather.location.country}`
+    city.innerText = `${weather.location.name}, ${weather.location.region}, ${weather.location.country}`
 
     
 }
