@@ -27,8 +27,8 @@ function enter(event) {
     }
 }
 
-function searchResults(city,lang){
-    fetch(`${api.baseURL}current.json?key=${api.key}&q=${city}&lang=${lang}`)
+function searchResults(city){
+    fetch(`${api.baseURL}forecast.json?key=${api.key}&q=${city}&lang=${api.lang}`)
     .then(response => {
         if (!response.ok){
             throw new Error (`Http Error: status ${response.status}`);
@@ -48,5 +48,36 @@ function diplayResults(weather){
     
     city.innerText = `${weather.location.name}, ${weather.location.region}, ${weather.location.country}`
 
-    
+    let now =  new Date();
+    date.innerText =  dateDetails(now);
+
+    let iconName = weather.current.condition.icon;
+    container_img.innerHTML = `<img src="${iconName}">`;
+
+    let temperature = `${Math.round(weather.current.temp_c)}`;
+    temp_number.innerText = temperature;
+    temp_unit.innerText = '°C';
+
+    let weatherNow = `Agora: ${weather.current.condition.text}`;
+    let prevision = `Previsão: ${weather.forecast.forecastday[0].day.condition.text}`;
+    weather_t.innerText = `${weatherNow}
+                           ${prevision}`;
+
+    let mintemp_c = `Min: ${Math.round(weather.forecast.forecastday[0].day.mintemp_c)}°C`;
+    let maxtemp_c = `Max: ${Math.round(weather.forecast.forecastday[0].day.maxtemp_c)}°C`
+    hi_low.innerText = `${mintemp_c} / ${maxtemp_c}`;
+}
+
+function dateDetails(d){
+    let dayOfWeek = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
+    let months = ['Janeiro', 'Fereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+
+    let weekday = dayOfWeek[d.getDay()]; //0-6
+    let date = d.getDate();
+    let month = months[d.getMonth()];
+    let year = d.getFullYear();
+    let hour = d.getHours();
+    let minutes = `0:${d.getMinutes()}`.slice(-2);  
+
+    return `${weekday}, ${date} de ${month} de ${year}, ${hour}:${minutes}Hr`;
 }
