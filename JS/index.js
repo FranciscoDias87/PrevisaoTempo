@@ -1,6 +1,6 @@
 const api = {
     key: '251d05335fca446ab7414111220401',
-    baseURL: 'http://api.weatherapi.com/v1/',
+    baseURL: 'https://api.weatherapi.com/v1/',
     lang: 'pt'
 }
 
