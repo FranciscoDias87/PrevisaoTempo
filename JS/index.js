@@ -28,7 +28,7 @@ function enter(event) {
 }
 
 function searchResults(city){
-    fetch(`${api.baseURL}search.json?key=${api.key}&q=${city}&lang=${api.lang}`)
+    fetch(`${api.baseURL}forecast.json?key=${api.key}&q=${city}&lang=${api.lang}`)
     .then(response => {
         if (!response.ok){
             throw new Error (`Http Error: status ${response.status}`);
